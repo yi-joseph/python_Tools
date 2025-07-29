@@ -3,6 +3,7 @@ from pypinyin import lazy_pinyin
 import requests
 from bs4 import BeautifulSoup
 
+
 def get_wikipedia_definition(word):
     """中文维基百科抓取"""
     url = f"https://zh.wikipedia.org/wiki/{word}"
@@ -28,12 +29,10 @@ for para in doc.paragraphs:
     if not word:
         continue
     pinyin = " ".join(lazy_pinyin(word))
-    zdic_def = get_zdic_definition(word)
     wiki_def = get_wikipedia_definition(word)
     
     # Neues Format in die Datei schreiben
     new_doc.add_paragraph(f"{word} ({pinyin}) –")
-    new_doc.add_paragraph(f"(汉典)\n{zdic_def}")
     new_doc.add_paragraph(f"(Wikipedia)\n{wiki_def}")
     new_doc.add_paragraph("")  # Leerzeile
 
